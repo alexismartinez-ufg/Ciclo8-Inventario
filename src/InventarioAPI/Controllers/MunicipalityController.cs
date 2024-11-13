@@ -12,6 +12,16 @@ namespace InventarioAPI.Controllers
         [ProducesResponseType(typeof(IEnumerable<Municipality>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int? page = null, int? pageSize = null)
         {
+            if (page <= 0)
+            {
+                return BadRequest(new ProblemDetails
+                {
+                    Type = "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+                    Title = "Bad Request",
+                    Detail = "page cannot be equal to or less than 0"
+                });
+            }
+
             var query = context.Municipalities.AsQueryable();
 
             if (page.HasValue || pageSize.HasValue)
