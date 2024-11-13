@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace InventarioAPI.Controllers
 {
 
-    [Route("api/deparment")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DeparmentController(Ciclo8InventarioContext context) : ControllerBase
     {

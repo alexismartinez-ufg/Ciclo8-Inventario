@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventarioAPI.Controllers
 {
-    [Route("api/municipality")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MunicipalityController(Ciclo8InventarioContext context) : ControllerBase
     {
