@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace InventarioDAL;
+﻿namespace InventarioDAL;
 
 public partial class Product
 {
