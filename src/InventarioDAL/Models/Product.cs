@@ -1,4 +1,6 @@
-﻿namespace InventarioDAL;
+﻿using System.Text.Json.Serialization;
+
+namespace InventarioDAL;
 
 public partial class Product
 {
@@ -30,13 +32,18 @@ public partial class Product
 
     public bool ProductStatus { get; set; }
 
+    [JsonIgnore]
     public virtual Brand IdBrandNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Category IdCategoryNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual UnitMeasure IdUnitMeasureNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Warehouse IdWarehouseNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<InventoryMoventDetail> InventoryMoventDetails { get; set; } = new List<InventoryMoventDetail>();
 }
