@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace InventarioDAL;
 
@@ -23,5 +22,6 @@ public partial class InventoryMovement
 
     public virtual User IdUserNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<InventoryMoventDetail> InventoryMoventDetails { get; set; } = new List<InventoryMoventDetail>();
 }
