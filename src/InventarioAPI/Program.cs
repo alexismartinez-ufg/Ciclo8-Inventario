@@ -1,4 +1,7 @@
 
+using InventarioDAL;
+using Microsoft.EntityFrameworkCore;
+
 namespace InventarioAPI
 {
     public class Program
@@ -13,6 +16,8 @@ namespace InventarioAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<Ciclo8InventarioContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
