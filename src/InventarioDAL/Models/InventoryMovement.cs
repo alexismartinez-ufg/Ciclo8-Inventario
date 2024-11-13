@@ -16,10 +16,13 @@ public partial class InventoryMovement
 
     public int? IdClient { get; set; }
 
+    [JsonIgnore]
     public virtual Client? IdClientNavigation { get; set; }
-
+    
+    [JsonIgnore]
     public virtual Supplier? IdSupplierNavigation { get; set; }
-
+    
+    [JsonIgnore]
     public virtual User IdUserNavigation { get; set; } = null!;
 
     [JsonIgnore]

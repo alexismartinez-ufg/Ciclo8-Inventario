@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace InventarioDAL;
 
@@ -17,5 +16,6 @@ public partial class SupplierContact
 
     public bool ContactSupplierStatus { get; set; }
 
+    [JsonIgnore]
     public virtual Supplier IdSupplierNavigation { get; set; } = null!;
 }

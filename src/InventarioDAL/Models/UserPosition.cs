@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace InventarioDAL;
 
@@ -11,5 +10,6 @@ public partial class UserPosition
 
     public bool UserPositionStatus { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }
