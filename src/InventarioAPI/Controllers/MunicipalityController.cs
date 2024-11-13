@@ -32,14 +32,14 @@ namespace InventarioAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            var department = await context.Municipalities.FirstOrDefaultAsync(x => x.IdMunicipality == id);
+            var municipality = await context.Municipalities.FirstOrDefaultAsync(x => x.IdMunicipality == id);
 
-            if (department == null)
+            if (municipality == null)
             {
                 return NotFound();
             }
 
-            return Ok(department);
+            return Ok(municipality);
         }
 
         [HttpPost]
@@ -78,14 +78,14 @@ namespace InventarioAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(int id)
         {
-            var department = await context.Municipalities.FirstOrDefaultAsync(x => x.IdMunicipality == id);
+            var municipality = await context.Municipalities.FirstOrDefaultAsync(x => x.IdMunicipality == id);
 
-            if (department == null)
+            if (municipality == null)
             {
                 return NotFound();
             }
 
-            context.Municipalities.Remove(department);
+            context.Municipalities.Remove(municipality);
             await context.SaveChangesAsync();
 
             return Ok();
