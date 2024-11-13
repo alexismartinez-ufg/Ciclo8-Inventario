@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace InventarioDAL;
 
@@ -11,7 +10,9 @@ public partial class Role
 
     public bool RoleStatus { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
 
+    [JsonIgnore]
     public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 }
