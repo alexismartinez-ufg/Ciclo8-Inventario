@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace InventarioDAL;
 
@@ -11,7 +12,9 @@ public partial class District
 
     public int IdMunicipality { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
 
+    [JsonIgnore]
     public virtual Municipality IdMunicipalityNavigation { get; set; } = null!;
 }
