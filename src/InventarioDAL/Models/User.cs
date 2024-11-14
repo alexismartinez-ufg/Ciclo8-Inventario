@@ -14,7 +14,7 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public bool UserStatus { get; set; }
+    public bool UserStatus { get; set; } = true;
 
     [JsonIgnore]
     public virtual ICollection<InventoryMovement> InventoryMovements { get; set; } = new List<InventoryMovement>();

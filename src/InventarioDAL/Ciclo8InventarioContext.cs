@@ -386,7 +386,7 @@ public partial class Ciclo8InventarioContext : DbContext
                 .HasMaxLength(40)
                 .HasColumnName("name_user");
             entity.Property(e => e.Password)
-                .HasMaxLength(40)
+                .HasMaxLength(100)
                 .HasColumnName("password");
             entity.Property(e => e.UserName)
                 .HasMaxLength(40)
