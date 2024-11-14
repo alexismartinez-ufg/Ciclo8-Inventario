@@ -43,8 +43,6 @@ public partial class Ciclo8InventarioContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<UserPosition> UserPositions { get; set; }
-
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
     public virtual DbSet<Warehouse> Warehouses { get; set; }
@@ -384,7 +382,6 @@ public partial class Ciclo8InventarioContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(40)
                 .HasColumnName("email");
-            entity.Property(e => e.IdUserPosition).HasColumnName("id_user_position");
             entity.Property(e => e.NameUser)
                 .HasMaxLength(40)
                 .HasColumnName("name_user");
@@ -394,28 +391,8 @@ public partial class Ciclo8InventarioContext : DbContext
             entity.Property(e => e.UserName)
                 .HasMaxLength(40)
                 .HasColumnName("user_name");
-            entity.Property(e => e.UserPosition)
-                .HasMaxLength(40)
-                .HasColumnName("user_position");
+           
             entity.Property(e => e.UserStatus).HasColumnName("user_status");
-
-            entity.HasOne(d => d.IdUserPositionNavigation).WithMany(p => p.Users)
-                .HasForeignKey(d => d.IdUserPosition)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_user_user_position");
-        });
-
-        modelBuilder.Entity<UserPosition>(entity =>
-        {
-            entity.HasKey(e => e.IdUserPosition).HasName("PK__user_pos__939046604D4E0387");
-
-            entity.ToTable("user_position", "catalog");
-
-            entity.Property(e => e.IdUserPosition).HasColumnName("id_user_position");
-            entity.Property(e => e.UserPositionName)
-                .HasMaxLength(40)
-                .HasColumnName("user_position_name");
-            entity.Property(e => e.UserPositionStatus).HasColumnName("user_position_status");
         });
 
         modelBuilder.Entity<UserRole>(entity =>

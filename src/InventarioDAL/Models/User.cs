@@ -14,14 +14,7 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public string UserPosition { get; set; } = null!;
-
     public bool UserStatus { get; set; }
-
-    public int IdUserPosition { get; set; }
-    
-    [JsonIgnore]
-    public virtual UserPosition IdUserPositionNavigation { get; set; } = null!;
 
     [JsonIgnore]
     public virtual ICollection<InventoryMovement> InventoryMovements { get; set; } = new List<InventoryMovement>();
