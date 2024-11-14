@@ -12,6 +12,7 @@ namespace InventarioAPI.Controllers
     {
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BrandGetDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get(int? page = null, int? pageSize = null)
         {
             if (page <= 0)
