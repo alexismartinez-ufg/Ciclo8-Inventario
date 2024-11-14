@@ -6,6 +6,7 @@ namespace InventarioAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [JwtAuthorize]
     public class BrandController(Ciclo8InventarioContext context) : ControllerBase
     {
         [HttpGet]
