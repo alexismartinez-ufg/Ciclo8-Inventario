@@ -1,4 +1,5 @@
 ﻿using InventarioDAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,6 +61,9 @@ namespace InventarioAPI.Controllers
             {
                 return BadRequest();
             }
+
+            var passwordHasher = new PasswordHasher<User>();
+            user.Password = passwordHasher.HashPassword(user, user.Password);
 
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();

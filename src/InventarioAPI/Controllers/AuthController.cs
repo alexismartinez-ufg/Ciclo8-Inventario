@@ -1,5 +1,6 @@
 ﻿using InventarioDAL;
 using InventarioDAL.Dtos;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,15 +22,22 @@ namespace InventarioAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto loginRequest)
         {
             var user = await context.Users
-                .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.Password == loginRequest.Password);
+                .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName);
 
             if (user == null)
             {
                 return Unauthorized();
             }
 
-            var token = GenerateJwtToken(user);
-            Response.Cookies.Append("jwt", token, new CookieOptions { HttpOnly = true, Secure = true });
+            var passwordHasher = new PasswordHasher<User>();
+            var result = passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return Unauthorized();
+            }
+
+            Response.Cookies.Append("jwt", GenerateJwtToken(user), new CookieOptions { HttpOnly = true, Secure = true });
 
             return Ok();
         }
