@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -23,7 +23,9 @@ namespace InventarioAPI
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!context.HttpContext.Request.Cookies.TryGetValue("jwt", out string? token) || string.IsNullOrEmpty(token))
+            var token = context.HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
             {
                 context.Result = new UnauthorizedResult();
                 return;
