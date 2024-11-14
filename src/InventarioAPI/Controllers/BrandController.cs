@@ -1,4 +1,5 @@
 ﻿using InventarioDAL;
+using InventarioDAL.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +11,7 @@ namespace InventarioAPI.Controllers
     public class BrandController(Ciclo8InventarioContext context) : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Brand>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<BrandGetDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(int? page = null, int? pageSize = null)
         {
             if (page <= 0)
@@ -35,7 +36,7 @@ namespace InventarioAPI.Controllers
                     .Take(recordsPerPage);
             }
 
-            return Ok(await query.ToListAsync());
+            return Ok(await query.Select(x => new BrandGetDto(x)).ToListAsync());
         }
 
         [HttpGet("{id}")]
@@ -54,15 +55,15 @@ namespace InventarioAPI.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Brand), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post([FromBody] Brand brand)
+        [ProducesResponseType(typeof(BrandGetDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Post([FromBody] BrandGetDto brand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            await context.Brands.AddAsync(brand);
+            await context.Brands.AddAsync(brand.ToDomain());
             await context.SaveChangesAsync();
 
             return Ok(brand);
