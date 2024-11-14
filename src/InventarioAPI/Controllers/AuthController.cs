@@ -37,17 +37,9 @@ namespace InventarioAPI.Controllers
                 return Unauthorized();
             }
 
-            Response.Cookies.Append("jwt", GenerateJwtToken(user), new CookieOptions { HttpOnly = true, Secure = true });
+            var token = GenerateJwtToken(user);
 
-            return Ok();
-        }
-
-        [HttpPost("logout")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Logout()
-        {
-            Response.Cookies.Delete("jwt");
-            return Ok();
+            return Ok(new { token });
         }
 
         [HttpGet("validate")]
@@ -55,7 +47,9 @@ namespace InventarioAPI.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult ValidateToken()
         {
-            if (Request.Cookies.TryGetValue("jwt", out string? token) && !string.IsNullOrEmpty(token))
+            var token = Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+
+            if (!string.IsNullOrEmpty(token))
             {
                 try
                 {
