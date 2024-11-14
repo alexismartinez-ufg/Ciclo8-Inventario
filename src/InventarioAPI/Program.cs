@@ -17,6 +17,15 @@ namespace InventarioAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp",
+                    policy => policy.WithOrigins("http://localhost:4200")
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
+
+
             builder.Services.AddDbContext<Ciclo8InventarioContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
@@ -32,6 +41,7 @@ namespace InventarioAPI
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAngularApp");
 
             app.MapControllers();
 
