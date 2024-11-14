@@ -55,6 +55,7 @@ namespace InventarioAPI.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] User user)
         {
             if (!ModelState.IsValid)
